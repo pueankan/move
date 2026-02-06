@@ -1,0 +1,300 @@
+/**
+ * Animated Background CSS - UPDATED VERSION
+ * Industrial Construction Theme
+ * พื้นหลังเคลื่อนไหวธีมอุตสาหกรรมก่อสร้าง
+ * รองรับ Light/Dark Theme แบบสมบูรณ์
+ */
+
+/* ========== Dark Theme Background (Default) ========== */
+#animated-background {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    overflow: hidden;
+    transition: background 0.6s ease;
+}
+
+/* Dark Theme - Default และเมื่อไม่มี theme class */
+body.theme-dark #animated-background,
+body:not(.theme-light):not(.theme-dark) #animated-background {
+    background: linear-gradient(135deg, 
+        #1a1a2e 0%, 
+        #16213e 50%, 
+        #0f3460 100%
+    );
+}
+
+/* ========== Light Theme Background ========== */
+body.theme-light #animated-background {
+    background: linear-gradient(135deg, 
+        #f0f4f8 0%,    /* เทาอ่อนนวล */
+        #d9e2ec 50%,   /* เทาฟ้าอ่อน */
+        #bcccdc 100%   /* เทาฟ้า */
+    );
+}
+
+/* Alternative Light Theme (ถ้าต้องการสีอบอุ่นกว่า) */
+/* 
+body.theme-light #animated-background {
+    background: linear-gradient(135deg, 
+        #fff5f5 0%,
+        #ffe4e1 50%,
+        #ffd4cc 100%
+    );
+}
+*/
+
+/* ========== Canvas ========== */
+#particle-canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    transition: opacity 0.6s ease;
+}
+
+/* ========== Gradient Overlay - Dark Theme ========== */
+.gradient-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    transition: all 0.6s ease;
+}
+
+/* Dark Theme Gradient */
+body.theme-dark .gradient-overlay,
+body:not(.theme-light):not(.theme-dark) .gradient-overlay {
+    background:
+        radial-gradient(circle at 20% 30%, rgba(255, 107, 0, 0.08) 0%, transparent 50%),
+        radial-gradient(circle at 80% 70%, rgba(0, 173, 181, 0.08) 0%, transparent 50%),
+        radial-gradient(circle at 50% 50%, rgba(255, 193, 7, 0.05) 0%, transparent 60%);
+    animation: gradientPulse 15s ease-in-out infinite alternate;
+}
+
+/* Light Theme Gradient - เข้มขึ้นเล็กน้อย */
+body.theme-light .gradient-overlay {
+    background:
+        radial-gradient(circle at 20% 30%, rgba(255, 107, 0, 0.15) 0%, transparent 50%),
+        radial-gradient(circle at 80% 70%, rgba(0, 173, 181, 0.15) 0%, transparent 50%),
+        radial-gradient(circle at 50% 50%, rgba(255, 193, 7, 0.10) 0%, transparent 60%);
+    animation: gradientPulseLightMode 15s ease-in-out infinite alternate;
+}
+
+/* ========== Gradient Pulse Animations ========== */
+@keyframes gradientPulse {
+    0% {
+        opacity: 0.6;
+        transform: scale(1);
+    }
+    50% {
+        opacity: 0.8;
+        transform: scale(1.05);
+    }
+    100% {
+        opacity: 0.6;
+        transform: scale(1);
+    }
+}
+
+@keyframes gradientPulseLightMode {
+    0% {
+        opacity: 0.7;
+        transform: scale(1);
+    }
+    50% {
+        opacity: 0.9;
+        transform: scale(1.05);
+    }
+    100% {
+        opacity: 0.7;
+        transform: scale(1);
+    }
+}
+
+/* ========== Glow Effects ========== */
+.glow-accent {
+    position: absolute;
+    width: 300px;
+    height: 300px;
+    border-radius: 50%;
+    filter: blur(100px);
+    transition: opacity 0.6s ease, filter 0.6s ease;
+    animation: floatGlow 20s ease-in-out infinite;
+}
+
+/* Dark Theme Glow - อ่อนกว่า */
+body.theme-dark .glow-accent,
+body:not(.theme-light):not(.theme-dark) .glow-accent {
+    opacity: 0.15;
+}
+
+/* Light Theme Glow - เข้มขึ้น */
+body.theme-light .glow-accent {
+    opacity: 0.30;
+    filter: blur(80px);
+}
+
+/* Orange Glow */
+.glow-accent.orange {
+    background: radial-gradient(circle, #ff6b00 0%, transparent 70%);
+    top: 10%;
+    left: 10%;
+    animation-delay: 0s;
+}
+
+/* Cyan Glow */
+.glow-accent.cyan {
+    background: radial-gradient(circle, #00adb5 0%, transparent 70%);
+    bottom: 10%;
+    right: 10%;
+    animation-delay: 5s;
+}
+
+/* Yellow Glow */
+.glow-accent.yellow {
+    background: radial-gradient(circle, #ffc107 0%, transparent 70%);
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    animation-delay: 10s;
+}
+
+/* ========== Float Glow Animation ========== */
+@keyframes floatGlow {
+    0%, 100% {
+        transform: translate(0, 0) scale(1);
+        opacity: inherit;
+    }
+    25% {
+        transform: translate(30px, -30px) scale(1.1);
+    }
+    50% {
+        transform: translate(-30px, 30px) scale(0.9);
+    }
+    75% {
+        transform: translate(20px, 20px) scale(1.05);
+    }
+}
+
+/* Light Theme - ปรับ animation ให้นุ่มนวลกว่า */
+body.theme-light .glow-accent.yellow {
+    animation: floatGlowLight 20s ease-in-out infinite;
+}
+
+@keyframes floatGlowLight {
+    0%, 100% {
+        transform: translate(-50%, -50%) scale(1);
+    }
+    25% {
+        transform: translate(calc(-50% + 30px), calc(-50% - 30px)) scale(1.1);
+    }
+    50% {
+        transform: translate(calc(-50% - 30px), calc(-50% + 30px)) scale(0.9);
+    }
+    75% {
+        transform: translate(calc(-50% + 20px), calc(-50% + 20px)) scale(1.05);
+    }
+}
+
+/* ========== Grid Pattern Overlay (Optional - เพิ่มลายเส้น) ========== */
+.grid-pattern {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.6s ease;
+}
+
+/* แสดง grid ใน Light Mode */
+body.theme-light .grid-pattern {
+    opacity: 0.03;
+    background-image: 
+        linear-gradient(rgba(0, 0, 0, 0.05) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0, 0, 0, 0.05) 1px, transparent 1px);
+    background-size: 50px 50px;
+}
+
+/* ========== Particle Effects Enhancement ========== */
+/* Dark Theme Particles */
+body.theme-dark #particle-canvas,
+body:not(.theme-light):not(.theme-dark) #particle-canvas {
+    opacity: 0.6;
+}
+
+/* Light Theme Particles - ทึบขึ้นเล็กน้อย */
+body.theme-light #particle-canvas {
+    opacity: 0.8;
+    mix-blend-mode: multiply;
+}
+
+/* ========== Responsive Design ========== */
+@media (max-width: 768px) {
+    .gradient-overlay {
+        opacity: 0.8;
+    }
+
+    .glow-accent {
+        width: 200px;
+        height: 200px;
+    }
+    
+    /* Dark Theme */
+    body.theme-dark .glow-accent,
+    body:not(.theme-light):not(.theme-dark) .glow-accent {
+        filter: blur(60px);
+    }
+    
+    /* Light Theme */
+    body.theme-light .glow-accent {
+        filter: blur(50px);
+    }
+}
+
+@media (max-width: 480px) {
+    .glow-accent {
+        width: 150px;
+        height: 150px;
+    }
+    
+    body.theme-dark .glow-accent,
+    body:not(.theme-light):not(.theme-dark) .glow-accent {
+        filter: blur(40px);
+        opacity: 0.12;
+    }
+    
+    body.theme-light .glow-accent {
+        filter: blur(35px);
+        opacity: 0.25;
+    }
+}
+
+/* ========== Performance Optimization ========== */
+@media (prefers-reduced-motion: reduce) {
+    .gradient-overlay,
+    .glow-accent,
+    #animated-background {
+        animation: none !important;
+        transition: none !important;
+    }
+}
+
+/* ========== Theme Transition Enhancement ========== */
+body {
+    transition: background-color 0.6s ease;
+}
+
+#animated-background,
+.gradient-overlay,
+.glow-accent,
+#particle-canvas {
+    will-change: opacity, background, filter;
+}
